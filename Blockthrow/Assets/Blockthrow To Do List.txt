@@ -1,0 +1,32 @@
+Prototype 1:
+Flying:
+Tweak values for gravity and throw force.
+fix physics used for flying (acts wierdly)
+
+
+Hanging:
+Prevent player from getting stuck on the bottom of the floor (don't require the player to use left/right keys to get out)
+
+Walking:
+Add verticality check for dragging block
+
+General:
+Make movement more responsive
+Make sure all floors have the floor script & colliders
+
+Future issues:
+Hanging:
+allow floor detection for block to work for adjacent platforms (for moving platforms)
+
+General:
+Get game art
+
+Polish:
+
+Hanging:
+
+Walking:
+add check for when block is hanging off ledge (make sure it doesn't get stuck on a corner while pulling it up)
+
+General:
+change instances of teleporting to physical animation (moving past block, getting on ledge)
