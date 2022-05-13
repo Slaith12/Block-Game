@@ -40,14 +40,12 @@ namespace Blockthrow
         {
             flying = true;
             rigidbody.drag = 0;
-            rigidbody.gravityScale = 3f;
         }
 
         public void EndFly()
         {
             flying = false;
             rigidbody.drag = 1f;
-            rigidbody.gravityScale = 1f;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -95,7 +93,7 @@ namespace Blockthrow
             }
             if (contacts < 0)
             {
-                Debug.LogError("Number of contacts on player is negative");
+                Debug.LogError("Number of contacts on block is negative");
             }
             Floor oldFloor = collision.GetComponent<Floor>();
             if (oldFloor != null)

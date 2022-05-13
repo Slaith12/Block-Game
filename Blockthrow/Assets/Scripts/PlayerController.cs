@@ -200,6 +200,7 @@ namespace Blockthrow
             //Vector2 force = -distance.normalized * (Mathf.Max(0, distance.magnitude - Chain.chainLength)) * chainPullForce;
             //Debug.Log(force);
             //rigidbody.AddForce(force, ForceMode2D.Force);
+
             //if (distance.magnitude > Chain.chainLength)
             //{
             //    transform.position = block.transform.position - (Vector3)(1.01f * Chain.chainLength * block.rigidbody.velocity.normalized);
@@ -208,6 +209,7 @@ namespace Blockthrow
             //    rigidbody.velocity = 0.9f * block.rigidbody.velocity;
             //    Debug.Log("Block pos: " + block.transform.position + "Velocity offset: " + (block.rigidbody.velocity.normalized * Chain.chainLength));
             //}
+
             if (grounded)
             {
                 Debug.Log("Player grounded, ending flight");
@@ -224,6 +226,12 @@ namespace Blockthrow
             {
                 Vector2 playerPos = (Vector2)transform.position + chainOffset;
                 Vector2 blockPos = (Vector2)block.transform.position + block.chainOffset;
+                float dist = (playerPos - blockPos).magnitude;
+                if(dist/Chain.chainLength > 0.5f)
+                {
+                    if(block.rigidbody.velocity.y > 0)
+                        rigidbody.velocity = block.rigidbody.velocity * dist/Chain.chainLength;
+                }
                 RaycastHit2D hit = Physics2D.Raycast(playerPos, blockPos - playerPos, (blockPos - playerPos).magnitude, enviroLayer);
                 if(hit)
                 {
@@ -355,7 +363,6 @@ namespace Blockthrow
 
         void StartFly()
         {
-            rigidbody.gravityScale = 2f;
             holdingBlock = false;
             block.gameObject.SetActive(true);
             chain.gameObject.SetActive(true);
@@ -366,7 +373,6 @@ namespace Blockthrow
         public void EndFly()
         {
             chain.Land();
-            rigidbody.gravityScale = 1;
         }
 
         void PickUpBlock()

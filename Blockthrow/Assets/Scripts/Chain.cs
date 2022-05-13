@@ -98,7 +98,7 @@ namespace Blockthrow
             pieceLength = (chains[1].anchor - chains[1].connectedAnchor).magnitude;
 
             tether = character.GetComponent<DistanceJoint2D>();
-            tether.distance = chainLength;
+            tether.distance = chainLength*1.1f;
             tether.anchor = character.chainOffset;
             tether.connectedAnchor = block.chainOffset;
             tether.enabled = false;
