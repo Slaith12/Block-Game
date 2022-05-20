@@ -96,6 +96,7 @@ MonoBehaviour:
     type: 3}
   block: {fileID: 3069252283328219526}
   character: {fileID: 3797839369671594457}
+  useTether: 1
 --- !u!1 &2855919631090476981
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,10 +246,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000000
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -373,10 +374,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -408,7 +409,7 @@ MonoBehaviour:
   accelTime: 0.25
   deccelTime: 0.125
   pullStrength: 15
-  throwStrength: 30
+  throwStrength: 50
   tugStrength: 12
   swingStrength: 100
   hangMoveSpeed: 1
@@ -416,6 +417,7 @@ MonoBehaviour:
   chainPullForce: 5000
   followStrength: 1
   forceMix: 0.5
+  distanceCutoff: 0.5
   chainOffset: {x: -0.4, y: -0.3}
   rigidbody: {fileID: 0}
 --- !u!70 &8752922374907455550
