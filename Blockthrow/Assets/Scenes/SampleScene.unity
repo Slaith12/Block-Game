@@ -1172,3 +1172,57 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f059fc413da3fe4b8edcda7d5c5ddc0, type: 3}
+--- !u!1001 &9093283068948096571
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 41.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.5898438
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235755952891449118, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750499948989328152, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: m_Name
+      value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279863516570969840, guid: 580dde199ba2c70448effe3707fc7128,
+        type: 3}
+      propertyPath: sceneName
+      value: Level 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 580dde199ba2c70448effe3707fc7128, type: 3}

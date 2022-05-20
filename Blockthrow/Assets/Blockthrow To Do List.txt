@@ -6,6 +6,7 @@ fix physics used for flying (acts wierdly)
 
 Hanging:
 Prevent player from getting stuck on the bottom of the floor (don't require the player to use left/right keys to get out)
+Stop chain from disappearing outside of hanging
 
 Walking:
 Add verticality check for dragging block
