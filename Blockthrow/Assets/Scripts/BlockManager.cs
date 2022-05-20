@@ -32,7 +32,11 @@ namespace Blockthrow
             {
                 Debug.Log("Ending Flight");
                 EndFly();
-                player.EndFly();
+            }
+            else if(!flying && !grounded)
+            {
+                Debug.Log("Block Flying");
+                Fly();
             }
         }
 

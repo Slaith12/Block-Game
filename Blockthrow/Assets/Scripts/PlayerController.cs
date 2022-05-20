@@ -180,7 +180,6 @@ namespace Blockthrow
                 else
                 {
                     Debug.Log("Player flying, ending walk");
-                    StartFly();
                     state = State.Flying;
                 }
             }
@@ -191,7 +190,11 @@ namespace Blockthrow
             renderer.color = Color.red;
 
             pullCooldown -= Time.deltaTime;
-            if(Input.GetMouseButtonDown(0) && pullCooldown <= 0f)
+            if(Input.GetMouseButtonDown(0) && holdingBlock)
+            {
+                Throw();
+            }
+            if(Input.GetMouseButtonDown(1) && pullCooldown <= 0f)
             {
                 Vector2 mouseAngle = ((Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - block.transform.position)).normalized;
                 block.rigidbody.AddForce(mouseAngle * chainPullForce, ForceMode2D.Impulse);
@@ -218,13 +221,15 @@ namespace Blockthrow
             if (grounded)
             {
                 Debug.Log("Player grounded, ending flight");
-                EndFly();
                 state = State.Walking;
+            }
+            else if(holdingBlock)
+            {
+                return;
             }
             else if (block.grounded)
             {
                 Debug.Log("Block grounded, ending flight");
-                EndFly();
                 state = State.Hanging;
             }
             else
@@ -241,7 +246,6 @@ namespace Blockthrow
                 RaycastHit2D hit = Physics2D.Raycast(playerPos, blockPos - playerPos, (blockPos - playerPos).magnitude, enviroLayer);
                 if(hit)
                 {
-                    EndFly();
                     state = State.Hanging;
                     Debug.Log("Obstacle found, ending flight " + hit.transform.name);
                 }
@@ -318,7 +322,6 @@ namespace Blockthrow
                 RaycastHit2D hit = Physics2D.Raycast(playerPos, blockPos - playerPos, (blockPos - playerPos).magnitude, enviroLayer);
                 if (!hit)
                 {
-                    StartFly();
                     state = State.Flying;
                     Debug.Log("Block falling, switching to flying");
                 }
@@ -355,7 +358,9 @@ namespace Blockthrow
 
         void Throw()
         {
-            StartFly();
+            block.gameObject.SetActive(true);
+            chain.gameObject.SetActive(true);
+            holdingBlock = false;
             Vector2 mouseAngle = ((Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)).normalized;
             //if(mouseAngle.y >= 0.866f) //angle can't be greater than about 60 degrees
             //{
@@ -365,20 +370,6 @@ namespace Blockthrow
             Debug.Log("Angle: " + mouseAngle + " Force: " + (mouseAngle * throwStrength));
             block.rigidbody.velocity = mouseAngle * throwStrength;
             chain.DistributeChains();
-        }
-
-        void StartFly()
-        {
-            holdingBlock = false;
-            block.gameObject.SetActive(true);
-            chain.gameObject.SetActive(true);
-            chain.Throw();
-            block.Fly();
-        }
-
-        public void EndFly()
-        {
-            chain.Land();
         }
 
         void PickUpBlock()

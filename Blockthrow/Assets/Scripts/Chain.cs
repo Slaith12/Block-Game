@@ -73,6 +73,8 @@ namespace Blockthrow
             }
         }
 
+        private bool useHinges { get { return !(character.state == State.Flying || block.flying); } }
+
         private float redLength;
 
         const int CHAINQUANTITY = 11;
@@ -127,6 +129,14 @@ namespace Blockthrow
         
         private void FixedUpdate()
         {
+            if(thrown && useHinges)
+            {
+                Land();
+            }
+            else if(!thrown && !useHinges)
+            {
+                Throw();
+            }
             if(thrown)
             {
                 chains[0].transform.position = blockPos;
@@ -134,7 +144,7 @@ namespace Blockthrow
             }
         }
 
-        public void Throw()
+        private void Throw()
         {
             chains[0].enabled = false;
             characterJoint.enabled = false;
@@ -142,7 +152,7 @@ namespace Blockthrow
             thrown = true;
         }
 
-        public void Land()
+        private void Land()
         {
             chains[0].enabled = true;
             characterJoint.enabled = true;
