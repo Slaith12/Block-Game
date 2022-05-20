@@ -403,17 +403,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   state: 0
-  killDepth: -6
+  killDepth: -20
   walkSpeed: 7
   accelTime: 0.25
   deccelTime: 0.125
   pullStrength: 15
-  throwStrength: 0
-  tugStrength: 0
-  swingStrength: 0
+  throwStrength: 30
+  tugStrength: 12
+  swingStrength: 100
   hangMoveSpeed: 1
-  hangHeightOffset: 1
-  chainPullForce: 0
+  hangHeightOffset: 1.2
+  chainPullForce: 5000
+  followStrength: 1
+  forceMix: 0.5
   chainOffset: {x: -0.4, y: -0.3}
   rigidbody: {fileID: 0}
 --- !u!70 &8752922374907455550

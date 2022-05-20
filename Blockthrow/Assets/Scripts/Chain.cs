@@ -9,6 +9,7 @@ namespace Blockthrow
         [SerializeField] GameObject singleChain;
         [SerializeField] BlockManager block;
         [SerializeField] PlayerController character;
+        [SerializeField] bool useTether = true;
 
         HingeJoint2D[] chains;
         HingeJoint2D characterJoint;

@@ -20,7 +20,7 @@ namespace Blockthrow
 
         [SerializeField] float killDepth = -6;
 
-        //used for walking
+        [Header("Walking Properties")]
         [SerializeField] float walkSpeed;
         float currentSpeed;
         [SerializeField] float accelTime;
@@ -36,14 +36,19 @@ namespace Blockthrow
         }
         bool holdingBlock;
 
-        //used for hanging
+        [Header("Hanging properties")]
         [SerializeField] float tugStrength;
         [SerializeField] float swingStrength;
         [SerializeField] float hangMoveSpeed;
         [SerializeField] float hangHeightOffset;
 
-        //used for flying
+        [Header("Flying properties")]
         [SerializeField] float chainPullForce = 5000;
+        [SerializeField] float followStrength = 1;
+        [Range(0,1)]
+        [SerializeField] float forceMix = 0.5f;
+        [Range(0,1)]
+        [SerializeField] float distanceCutoff = 0.5f;
         float pullCooldown;
 
         //for general use
@@ -229,8 +234,9 @@ namespace Blockthrow
                 float dist = (playerPos - blockPos).magnitude;
                 if(dist/Chain.chainLength > 0.5f)
                 {
-                    if(block.rigidbody.velocity.y > 0)
-                        rigidbody.velocity = block.rigidbody.velocity * dist/Chain.chainLength;
+                    Vector2 sharedVel = block.rigidbody.velocity * dist / Chain.chainLength * forceMix;
+                    Vector2 trailVel = (blockPos - playerPos) * followStrength * (1 - forceMix);
+                    rigidbody.velocity = sharedVel + trailVel;
                 }
                 RaycastHit2D hit = Physics2D.Raycast(playerPos, blockPos - playerPos, (blockPos - playerPos).magnitude, enviroLayer);
                 if(hit)
