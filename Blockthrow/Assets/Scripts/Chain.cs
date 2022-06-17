@@ -140,7 +140,9 @@ namespace Blockthrow
             if(thrown)
             {
                 chains[0].transform.position = blockPos;
+                chains[0].GetComponent<Rigidbody2D>().velocity = block.rigidbody.velocity;
                 chains[chains.Length - 1].transform.position = charPos;
+                chains[chains.Length - 1].GetComponent<Rigidbody2D>().velocity = character.rigidbody.velocity;
             }
         }
 

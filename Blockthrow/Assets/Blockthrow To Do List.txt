@@ -7,11 +7,15 @@ fix physics used for flying (acts wierdly)
 Hanging:
 Prevent player from getting stuck on the bottom of the floor (don't require the player to use left/right keys to get out)
 Stop chain from disappearing outside of hanging
+Fix chain detaching when exiting hanging into flying
 
 Walking:
 Add verticality check for dragging block
+Be able to pull block up
 
 General:
+Hinge joints are very wonky
+Fix box floor detection not working on edge of platform
 Make movement more responsive
 Make sure all floors have the floor script & colliders
 
