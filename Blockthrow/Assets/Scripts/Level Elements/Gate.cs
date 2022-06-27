@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gate : MonoBehaviour
+namespace Blockthrow.Enironment
 {
-    [SerializeField] float timeOpen = 1;
-    float timer;
-    Animator animator;
-
-    private void Awake()
+    public class Gate : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-    }
+        [SerializeField] float timeOpen = 1;
+        float timer;
+        Animator animator;
 
-    private void Update()
-    {
-        if (timer > 0)
+        private void Awake()
         {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-                Close();
+            animator = GetComponent<Animator>();
         }
-    }
 
-    public void Open()
-    {
-        timer = timeOpen;
-        animator.SetBool("isOpen", true);
-    }
+        private void Update()
+        {
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                    Close();
+            }
+        }
 
-    public void Close()
-    {
-        animator.SetBool("isOpen", false);
+        public void Open()
+        {
+            timer = timeOpen;
+            animator.SetBool("isOpen", true);
+        }
+
+        public void Close()
+        {
+            animator.SetBool("isOpen", false);
+        }
     }
 }

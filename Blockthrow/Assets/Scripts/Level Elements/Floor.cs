@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Blockthrow
+namespace Blockthrow.Enironment
 {
     public class Floor : MonoBehaviour
     {
