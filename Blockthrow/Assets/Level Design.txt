@@ -1,0 +1,8 @@
+Start player in a room with platforms above him to jump onto (he would jump vertically from one platform to the next, likely zig-zagging so that the platforms are around the same x position)
+Have a button off to the side that would open a door at the top of the room, and would require the player to throw the block from one of the platforms to reach it. Make the door have a timer (not too short, maybe 10 seconds). Maybe have a visible timer on the door sprite (when that's made)
+Have a second section with a button at the start and a timed door at the end. To get to the door have a platforming section that is moderately difficult to get to the end of in time (can have some horizontal and vertical sections)
+
+Ideas for level elements:
+A point in the air that can "hook" onto the block and allow the player to swing from that point before detaching from that point and continue flying. Can have the point be able to move along a conveyor for some levels. Might also have this act as the respawn animation, with the point coming up, hooking onto the block, then dragging it back to the respawn point.
+something that affects gravity in some areas of some levels
+an obstacle that can divert the player in some way
