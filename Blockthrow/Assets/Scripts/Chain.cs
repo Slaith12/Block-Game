@@ -82,7 +82,13 @@ namespace Blockthrow
 
         public static float chainLength { get { return CHAINQUANTITY * pieceLength; } }
         
-        public void Init()
+        public void Awake()
+        {
+            corners = new List<Vector2>();
+            thrown = false;
+        }
+
+        private void Start()
         {
             characterJoint = character.GetComponent<HingeJoint2D>();
             chains = new HingeJoint2D[CHAINQUANTITY];
@@ -90,7 +96,7 @@ namespace Blockthrow
             chains[0].connectedBody = block.rigidbody;
             Debug.Log(chains[0].connectedBody);
             chains[0].gameObject.layer = 9; //chain layer
-            for(int i = 1; i < CHAINQUANTITY; i++)
+            for (int i = 1; i < CHAINQUANTITY; i++)
             {
                 chains[i] = Instantiate(singleChain, transform).GetComponent<HingeJoint2D>();
                 chains[i].connectedBody = chains[i - 1].attachedRigidbody;
@@ -101,13 +107,10 @@ namespace Blockthrow
             pieceLength = (chains[1].anchor - chains[1].connectedAnchor).magnitude;
 
             tether = character.GetComponent<DistanceJoint2D>();
-            tether.distance = chainLength*1.1f;
+            tether.distance = chainLength * 1.1f;
             tether.anchor = character.chainOffset;
             tether.connectedAnchor = block.chainOffset;
             tether.enabled = false;
-
-            corners = new List<Vector2>();
-            thrown = false;
         }
 
         private void OnEnable()

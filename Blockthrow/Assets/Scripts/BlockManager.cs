@@ -19,7 +19,7 @@ namespace Blockthrow
         int contacts;
         public bool flying;
 
-        public void Init()
+        public void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
             contacts = 0;

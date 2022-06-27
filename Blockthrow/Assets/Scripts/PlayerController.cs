@@ -60,7 +60,7 @@ namespace Blockthrow
         [HideInInspector] public new Rigidbody2D rigidbody;
         new SpriteRenderer renderer;
 
-        public void Init()
+        public void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
             renderer = GetComponent<SpriteRenderer>();
