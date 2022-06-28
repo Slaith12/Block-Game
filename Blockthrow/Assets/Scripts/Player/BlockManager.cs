@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Blockthrow.Enironment;
+using Blockthrow.Environment;
 
 namespace Blockthrow
 {
@@ -18,7 +18,7 @@ namespace Blockthrow
         [HideInInspector] public List<Floor> ground;
         public bool grounded { get { return contacts != 0; } }
         int contacts;
-        public bool flying;
+        [HideInInspector] public bool flying;
 
         public void Awake()
         {
@@ -44,13 +44,11 @@ namespace Blockthrow
         public void Fly()
         {
             flying = true;
-            rigidbody.drag = 0;
         }
 
         public void EndFly()
         {
             flying = false;
-            rigidbody.drag = 1f;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

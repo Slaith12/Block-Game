@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Blockthrow.Enironment
+namespace Blockthrow.Environment
 {
     public class Gate : MonoBehaviour
     {

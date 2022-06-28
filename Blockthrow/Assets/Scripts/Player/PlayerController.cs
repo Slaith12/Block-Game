@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Blockthrow.Enironment;
+using Blockthrow.Environment;
 
 namespace Blockthrow
 {
@@ -106,6 +106,8 @@ namespace Blockthrow
             }
         }
 
+        #region Ground Logic
+
         void GroundControl()
         {
             renderer.color = holdingBlock ? Color.green : Color.white;
@@ -186,6 +188,10 @@ namespace Blockthrow
             }
         }
 
+        #endregion
+
+        #region Flying Logic
+
         void FlyControl()
         {
             renderer.color = Color.red;
@@ -228,7 +234,7 @@ namespace Blockthrow
             {
                 return;
             }
-            else if (block.grounded)
+            else if (!block.flying)
             {
                 Debug.Log("Block grounded, ending flight");
                 state = State.Hanging;
@@ -252,7 +258,11 @@ namespace Blockthrow
                 }
             }
         }
-        
+
+        #endregion
+
+        #region Hanging Logic
+
         void HangControl()
         {
             renderer.color = holdingBlock ? Color.green : Color.blue;
@@ -316,7 +326,7 @@ namespace Blockthrow
                 Debug.Log("Player grounded, ending hang");
                 state = State.Walking;
             }
-            if (!block.grounded)
+            if (block.flying)
             {
                 Vector2 playerPos = (Vector2)transform.position + chainOffset;
                 Vector2 blockPos = (Vector2)block.transform.position + block.chainOffset;
@@ -338,18 +348,13 @@ namespace Blockthrow
             }
         }
 
+        #endregion
+
+        #region Misc Functions
+
         public void DragBlock()
         {
-            block.rigidbody.drag = 1;
-            facingLeft = block.transform.position.x < transform.position.x;
-            if(facingLeft)
-            {
-                block.rigidbody.velocity = new Vector2(pullStrength, block.rigidbody.velocity.y);
-            }
-            else
-            {
-                block.rigidbody.velocity = new Vector2(-pullStrength, block.rigidbody.velocity.y);
-            }
+            block.rigidbody.velocity = (transform.position - block.transform.position).normalized * pullStrength;
         }
 
         void Aim()
@@ -379,6 +384,8 @@ namespace Blockthrow
             block.gameObject.SetActive(false);
             chain.gameObject.SetActive(false);
         }
+
+        #endregion
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
