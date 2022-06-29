@@ -354,6 +354,7 @@ namespace Blockthrow
 
         public void DragBlock()
         {
+            block.hookedPoint = null;
             block.rigidbody.velocity = (transform.position - block.transform.position).normalized * pullStrength;
         }
 

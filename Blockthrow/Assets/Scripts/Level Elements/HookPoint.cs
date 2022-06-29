@@ -6,16 +6,14 @@ namespace Blockthrow.Environment
 {
     public class HookPoint : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            BlockManager block = collision.GetComponent<BlockManager>();
+            if (block == null || block.hookedPoint != null)
+            {
+                return;
+            }
+            block.hookedPoint = transform;
         }
     }
 }

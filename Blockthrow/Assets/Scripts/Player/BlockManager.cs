@@ -20,6 +20,10 @@ namespace Blockthrow
         int contacts;
         [HideInInspector] public bool flying;
 
+        [HideInInspector] public Transform hookedPoint;
+        [SerializeField] float hookCooldown = 0.5f;
+        float hookWait;
+
         public void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
@@ -29,6 +33,20 @@ namespace Blockthrow
         // Update is called once per frame
         void FixedUpdate()
         {
+            if(hookWait > 0)
+            {
+                hookWait -= Time.fixedDeltaTime;
+            }
+
+            if(hookedPoint != null)
+            {
+                transform.position = hookedPoint.position;
+                rigidbody.velocity = Vector2.zero;
+                if (flying)
+                    EndFly();
+                return;
+            }
+
             if(flying && grounded)
             {
                 Debug.Log("Ending Flight");
@@ -49,6 +67,21 @@ namespace Blockthrow
         public void EndFly()
         {
             flying = false;
+        }
+
+        public void AttachHook(Transform hook)
+        {
+            if (hookWait > 0)
+                return;
+            hookedPoint = hook;
+        }
+
+        public void DetachHook(bool forceCooldown)
+        {
+            if (hookedPoint == null && !forceCooldown)
+                return;
+            hookedPoint = null;
+            hookWait = hookCooldown;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
