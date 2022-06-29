@@ -1,0 +1,48 @@
+Main Parts (ABCS): 
+Chain Attachment Points (Part of player and block, would be the attachment points)
+Chain Bends (Parts of the environment that the chain bends around, usually corners, maybe do other types of bends)
+Chain Controller (Determines how the objects at the attachment points are allowed to move, and also determines when bends should be made/go away)
+Chain Sections (Individual sections of the chain between attachment points and bends)
+
+Every aspect, unless marked otherwise in parenthesis at the beginning, is an important part of the system.
+
+Attachment Points
+
+| End points of the chain
+| Control movement of the objects they're attached to
+| (Reducible to a state system) Each point has an inertia value that determines how much their movement is influenced by the chain. Higher inertia = less influence. Negative/special numbers treated as infinte inertia. If both attachment points have infinite inertia, the chain has no effect on either object and a warning is printed to the console.
+
+Bends
+
+| Places where the chain would bend
+| Makes sure chain length calculation is done correctly
+| Checked every physics update to make sure they're all correct
+| (Cosmetic) Have a sliding factor that determines what happens if one side of the bend has excess slack. Negative values = slide towards player, positive = slide towards block, higher value = faster sliding, max value = 1. There are multiple factors that determine a bend's sliding factor, including angle of the bend, the y difference of the 2 connected ends, whether either of the attachment points are airborne/hanging (possibly have a system that checks if there's any point where the chain would be airborne since that section should get most of the slack)
+
+Controller
+
+| Single script that is attached to the parent chain object rather than any of the individual pieces.
+| Detects when bends should be added (chain goes around a new corner), moved (the chain bends around a moving corner), or removed (the chain stops bending around a corner) and what should happen in these situations. (!!!NOTE: This is likely going to be the most difficult part of the system, and was a big problem in all the previous code-based physics systems!!!)
+| (Reducible) Determines what happens when a chain section is stretched farther than its slack allows (either takes slack from other chain sections and/or imparts a force on each of the attachments that allows the chain to have enough slack)
+
+Section
+
+| Manages a section of chain that goes from one attachment point/bend to another.
+| Each attachment point has 1 section adjacent to it.
+| (Cosmetic) Each bend has 2 sections adjacent to it.
+| Each section has a total length value that determines how much of the chain is in that section. It also has a reference to the 2 places that are the ends of the section.
+| Sections calculate 2 additional values based on these inputs: used length (the minimum distance the section must be, which is the distance between the 2 ends) and slack (the extra length of chain within the chain that is unused and can be used when extra distance is needed, equal to total length - used length).
+| If slack is negative, sends a message to the controller to try to get slack back to 0
+
+
+Overall Implementation
+
+| Chain section with one of the attachment points as ends = Attached Section
+| Object with attachment point = Attachment
+| Whenever attachement moves:
+| If attached section would be shorter, section gains slack
+| If attached section would be longer, section loses slack. If section doesn't have enough slack to support the movement, it goes through all the sections and gets slack from them until it gets enough slack to support the movement or it gets to the other attachment point with some slack still needed. If the latter happens, the movement is cut short by applying a force to both attachment points pointed inwards. The total magnitude of this force depends on how much extra slack would be needed, and the magnitude of the force on each attachment point would depend on their inertia
+
+
+Practical Results
+TBA
