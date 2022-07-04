@@ -10,7 +10,8 @@ Attachment Points
 
 | End points of the chain
 | Control movement of the objects they're attached to
-| (Reducible to a state system) Each point has an inertia value that determines how much their movement is influenced by the chain. Higher inertia = less influence. Negative/special numbers treated as infinte inertia. If both attachment points have infinite inertia, the chain has no effect on either object and a warning is printed to the console.
+| (Reducible) Each point has an inertia value that determines how much their movement is influenced by the chain. Higher inertia = less influence. Negative/special numbers treated as infinte inertia. If both attachment points have infinite inertia, the chain has no effect on either object and a warning is printed to the console.
+| Each point has a static friction value that determines the minimum total force needed to be affected. Most of the time this value is very low, and when both points have it set, the total force has a lower bound of the lower friction value, even when the calculated force would be lower (the force can still be 0).
 
 Bends
 
@@ -39,10 +40,20 @@ Overall Implementation
 
 | Chain section with one of the attachment points as ends = Attached Section
 | Object with attachment point = Attachment
-| Whenever attachement moves:
+| Whenever attachment moves:
 | If attached section would be shorter, section gains slack
 | If attached section would be longer, section loses slack. If section doesn't have enough slack to support the movement, it goes through all the sections and gets slack from them until it gets enough slack to support the movement or it gets to the other attachment point with some slack still needed. If the latter happens, the movement is cut short by applying a force to both attachment points pointed inwards. The total magnitude of this force depends on how much extra slack would be needed, and the magnitude of the force on each attachment point would depend on their inertia
+| Bend detection:
+| Every object in the environment has a script that contain references to where the corners are. These references are contained in a list, so complex objects can still be detected properly.
+| (Optional) Each environment object also has a list of what corners normally have direct LOS to each other (ignoring any other objects)
+| (QOL) This would corner list would likely come from an editor script that does it automatically
+| Every update, a raycast checks if each chain section isn't interrupted. If a section is interrupted, it checks what lines can be drawn from each of the ends the section was attached to and the corners of the floor that interrupts it. It does this by iterating through all of the corners and recording which corners have LOS to the end. Then, it sees if there's any corners in common between these ends, and checks if creating a bend there wouldn't increase the used distance much (since it should only be at the very start of it going around the corner). It also checks if it can bend around multiple corners to get there (it keeps track of what the shortest route was and cancels when it finds a longer route)
+| When a new bend is determined, the corner's transform is added to the controller's list of bends and the bending section gets split up into multiple different sections (also kept track of in a list). These bends and sections would likely be kept track of using structs.
+| Every update, it checks if any bends should be removed. It does this by checking if 2 bends/attachment points that are 1 index away from each other have LOS (attachment points would be treated as having indices -1 and bends.Count). If they do, the bend in the middle is removed and the 2 sections attached to it get joined.
 
 
 Practical Results
-TBA
+| When on a flat surface, inertia will be set so that the player and block have about equal pulling power. The chain exerts no force expect when the player moves far enough away from the block. At this point, the block would be dragged forward and the player would be pulled backward, slowing them down, but not completely stopping or turning them around.
+| When flying, inertia will be set so that the player has no pulling power on the block so the block is unhampered. The chain will cause the player to follow behind the block during flight. (the player would likely have some air friction so that they aren't stuck in the same position relative to the block)
+| When hanging, the block has a higher friction value to make it less likely the player accidently drags the block off by just hanging there, but so that it still slides a little bit when the player falls off, especially at higher speeds. The chain would cause the player to stay hanging around the same distance away from the ledge and allow the player to swing a bit or climb up, while the block would stay still due to static friction unless the player purposely drags the block down.
+| When the block is hanging, the player has a slightly higher friction value so that they don't move when doing nothing, but they are still hampered extra by the block while pulling it up.
