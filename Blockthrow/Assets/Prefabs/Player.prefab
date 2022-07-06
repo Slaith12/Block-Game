@@ -259,6 +259,8 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   ground: []
   flying: 0
+  hookedPoint: {fileID: 0}
+  hookCooldown: 0.5
 --- !u!1 &7082791804311715591
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 3069252283328219526}
-  chain: {fileID: 4156378869918838598}
+  oldChain: {fileID: 4156378869918838598}
   enviroLayer:
     serializedVersion: 2
     m_Bits: 256
