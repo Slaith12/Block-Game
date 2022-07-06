@@ -14,7 +14,7 @@ namespace Blockthrow
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] BlockManager block;
-        [SerializeField] Chain chain;
+        [SerializeField] OldChain oldChain;
         public LayerMask enviroLayer;
         public LayerMask blockLayer;
         public State state;
@@ -130,7 +130,7 @@ namespace Blockthrow
                     holdingBlock = false;
                     block.transform.position = new Vector3(transform.position.x + (facingLeft ? -1.1f : 1.1f), transform.position.y - 0.5f);
                     block.gameObject.SetActive(true);
-                    chain.gameObject.SetActive(true);
+                    oldChain.gameObject.SetActive(true);
                 }
                 else if(touchingBlock)
                 {
@@ -244,9 +244,9 @@ namespace Blockthrow
                 Vector2 playerPos = (Vector2)transform.position + chainOffset;
                 Vector2 blockPos = (Vector2)block.transform.position + block.chainOffset;
                 float dist = (playerPos - blockPos).magnitude;
-                if(dist/Chain.chainLength > 0.5f)
+                if(dist/OldChain.chainLength > 0.5f)
                 {
-                    Vector2 sharedVel = block.rigidbody.velocity * dist / Chain.chainLength * forceMix;
+                    Vector2 sharedVel = block.rigidbody.velocity * dist / OldChain.chainLength * forceMix;
                     Vector2 trailVel = (blockPos - playerPos) * followStrength * (1 - forceMix);
                     rigidbody.velocity = sharedVel + trailVel;
                 }
@@ -277,7 +277,7 @@ namespace Blockthrow
                 {
                     Debug.Log("Get on ledge");
                     transform.position = GetCorner();
-                    chain.reducedLength = 0;
+                    oldChain.reducedLength = 0;
                     state = State.Walking;
                 }
             }
@@ -303,12 +303,12 @@ namespace Blockthrow
         {
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
-                chain.reducedLength += Time.fixedDeltaTime * hangMoveSpeed;
+                oldChain.reducedLength += Time.fixedDeltaTime * hangMoveSpeed;
             }
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                chain.reducedLength -= Time.fixedDeltaTime * hangMoveSpeed;
-                if (chain.reducedLength == 0)
+                oldChain.reducedLength -= Time.fixedDeltaTime * hangMoveSpeed;
+                if (oldChain.reducedLength == 0)
                 {
                     block.rigidbody.AddForce(GetSpeed(), ForceMode2D.Impulse);
                 }
@@ -366,7 +366,7 @@ namespace Blockthrow
         void Throw()
         {
             block.gameObject.SetActive(true);
-            chain.gameObject.SetActive(true);
+            oldChain.gameObject.SetActive(true);
             holdingBlock = false;
             Vector2 mouseAngle = ((Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)).normalized;
             //if(mouseAngle.y >= 0.866f) //angle can't be greater than about 60 degrees
@@ -376,14 +376,14 @@ namespace Blockthrow
             block.transform.position = transform.position + (Vector3)(mouseAngle * 1.5f);
             Debug.Log("Angle: " + mouseAngle + " Force: " + (mouseAngle * throwStrength));
             block.rigidbody.velocity = mouseAngle * throwStrength;
-            chain.DistributeChains();
+            oldChain.DistributeChains();
         }
 
         void PickUpBlock()
         {
             holdingBlock = true;
             block.gameObject.SetActive(false);
-            chain.gameObject.SetActive(false);
+            oldChain.gameObject.SetActive(false);
         }
 
         #endregion
