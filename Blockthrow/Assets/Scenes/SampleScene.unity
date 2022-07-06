@@ -1314,25 +1314,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 262922911283574490, guid: bab224a59d586f948aca2523d1e49730,
+    - target: {fileID: 3797839369671594457, guid: bab224a59d586f948aca2523d1e49730,
         type: 3}
-      propertyPath: m_Layer
-      value: 10
+      propertyPath: walkSpeed
+      value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 3190114224980362254, guid: bab224a59d586f948aca2523d1e49730,
+    - target: {fileID: 4156378869918838598, guid: bab224a59d586f948aca2523d1e49730,
         type: 3}
-      propertyPath: m_Name
-      value: Chain Anchor
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217921983437194867, guid: bab224a59d586f948aca2523d1e49730,
+    - target: {fileID: 4477285856759700097, guid: bab224a59d586f948aca2523d1e49730,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4217921983437194867, guid: bab224a59d586f948aca2523d1e49730,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.3
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6030025324188956963, guid: bab224a59d586f948aca2523d1e49730,
         type: 3}

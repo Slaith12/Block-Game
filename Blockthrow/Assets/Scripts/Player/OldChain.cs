@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Blockthrow
 {
-    
     public class OldChain : MonoBehaviour 
     {
         [SerializeField] GameObject singleChain;

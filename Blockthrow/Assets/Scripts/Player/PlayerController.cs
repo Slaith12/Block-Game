@@ -23,7 +23,6 @@ namespace Blockthrow
 
         [Header("Walking Properties")]
         [SerializeField] float walkSpeed;
-        float currentSpeed;
         [SerializeField] float accelTime;
         [SerializeField] float deccelTime;
         [SerializeField] float pullStrength;
@@ -65,7 +64,6 @@ namespace Blockthrow
         {
             rigidbody = GetComponent<Rigidbody2D>();
             renderer = GetComponent<SpriteRenderer>();
-            currentSpeed = 0f;
             state = State.Walking;
         }
 
@@ -78,15 +76,15 @@ namespace Blockthrow
             }
             switch(state)
             {
-                case State.Walking:
-                    GroundControl();
+                default:
+                    GroundControl(); //only acceptable state until chain works
                     break;
-                case State.Flying:
-                    FlyControl();
-                    break;
-                case State.Hanging:
-                    HangControl();
-                    break;
+                //case State.Flying:
+                //    FlyControl();
+                //    break;
+                //case State.Hanging:
+                //    HangControl();
+                //    break;
             }
         }
 
@@ -94,15 +92,15 @@ namespace Blockthrow
         {
             switch(state)
             {
-                case State.Walking:
-                    GroundPhysics();
+                default:
+                    GroundPhysics(); //only acceptable state until chain works
                     break;
-                case State.Flying:
-                    FlyPhysics();
-                    break;
-                case State.Hanging:
-                    HangPhysics();
-                    break;
+                //case State.Flying:
+                //    FlyPhysics();
+                //    break;
+                //case State.Hanging:
+                //    HangPhysics();
+                //    break;
             }
         }
 
@@ -145,6 +143,7 @@ namespace Blockthrow
 
         void GroundPhysics()
         {
+            float currentSpeed = rigidbody.velocity.x;
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 facingLeft = true;
@@ -397,7 +396,6 @@ namespace Blockthrow
             //Debug.Log("Enter " + collision.gameObject.name + " " + collision.isTrigger);
             if (contacts == 0)
             {
-                rigidbody.drag = 8;
                 Debug.Log("Player Landing");
             }
             contacts++;
@@ -413,7 +411,6 @@ namespace Blockthrow
             contacts--;
             if (contacts == 0)
             {
-                rigidbody.drag = 0;
                 Debug.Log("Player Airborne");
             }
             if(contacts < 0)
