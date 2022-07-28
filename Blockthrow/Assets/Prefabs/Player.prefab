@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charAtt: {fileID: 6458369191735769345}
   blockAtt: {fileID: 5560944973391490550}
+  pullBalance: 0.5
 --- !u!1 &2855919631090476981
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +295,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 40c7dd08c20e6584d8d93aaee5a1c839, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

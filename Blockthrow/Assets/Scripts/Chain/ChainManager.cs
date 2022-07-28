@@ -10,6 +10,8 @@ namespace Blockthrow.Chain
         [SerializeField] ChainAttachment blockAtt;
 
         float maxLength = 5;
+        [Range(0, 1)]
+        [SerializeField] float pullBalance = 0.5f;
 
         private void FixedUpdate()
         {
@@ -19,8 +21,8 @@ namespace Blockthrow.Chain
             if (dist > maxLength)
             {
                 float magnitude = (dist - maxLength) / Time.fixedDeltaTime;
-                charAtt.rigidbody.velocity += (Vector2)(blockAtt.transform.position - charAtt.transform.position).normalized * magnitude / 2;
-                blockAtt.rigidbody.velocity += (Vector2)(charAtt.transform.position - blockAtt.transform.position).normalized * magnitude / 2;
+                charAtt.rigidbody.velocity += (Vector2)(blockAtt.transform.position - charAtt.transform.position).normalized * magnitude * pullBalance;
+                blockAtt.rigidbody.velocity += (Vector2)(charAtt.transform.position - blockAtt.transform.position).normalized * magnitude * (1 - pullBalance);
             }
         }
     }
