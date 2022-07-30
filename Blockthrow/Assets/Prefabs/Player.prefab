@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 1045711539175759515}
+  staticFriction: 0.001
 --- !u!1 &1930537103317448185
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charAtt: {fileID: 6458369191735769345}
   blockAtt: {fileID: 5560944973391490550}
-  pullBalance: 0.5
+  pullBalance: 0.55
 --- !u!1 &2855919631090476981
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 926565843973091631}
+  staticFriction: 0.001
 --- !u!1 &7082791804311715591
 GameObject:
   m_ObjectHideFlags: 0
